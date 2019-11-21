@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body ng-app="myApp" ng-controller="todoCtrl">
+
+	<h2>My Address Book</h2>
+
+	<form ng-submit="change()">
+		<input type="text" ng-model="newFN" placeholder="First Name" required>
+		<input type="text" ng-model="newLN" placeholder="Last Name" required>
+		<input type="text" ng-model="newPN" placeholder="Phone Number" required>
+		<input type="text" ng-model="newAD" placeholder="Address" required>
+
+		<input type="submit" value="Add Contact">
+	</form>
+
+
+	<br><br>
+
+
+	<div ng-repeat="x in names | orderBy:'lastName'">
+		{{x.firstName}} {{x.lastName}} {{x.phoneNumber}} {{x.address}}
+	</div>
+
+
+
+	<script>
+	var app = angular.module('myApp', []);
+	app.controller('todoCtrl', function($scope) {
+		$scope.addressBook = [{firstName:'John', lastName:'Snow', phoneNumber:'1234567890', address:'123 Main Street'}];
+		$scope.names = [];
+
+		$scope.change = function() {
+			$scope.names.push({firstName:$scope.newFN, lastName:$scope.newLN, phoneNumber:$scope.newPN, address:$scope.newAD});
+			$scope.addressBook.firstName = $scope.newFN;
+			$scope.addressBook.lastName = $scope.newLN;
+			$scope.addressBook.phoneNumber = $scope.newPN;
+			$scope.addressBook.address = $scope.newAD;
+
+			$scope.newFN = "";
+			$scope.newLN = "";
+			$scope.newPN = "";
+			$scope.newAD = "";
+		};
+	});
+	</script>
+</body>
+</html>

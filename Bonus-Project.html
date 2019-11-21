@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body ng-app="myApp" ng-controller="todoCtrl">
+
+	<h2>My Address Book</h2>
+
+	<form ng-submit="change()">
+		<input type="text" ng-model="newFN" placeholder="First Name" required><br>
+		<input type="text" ng-model="newLN" placeholder="Last Name" required><br>
+		<input type="text" ng-model="newPN" placeholder="Phone Number" required><br>
+		<input type="text" ng-model="newAD" placeholder="Address" required><br>
+
+		<input type="submit" value="Add New Contact">
+	</form>
+
+
+
+
+<p> Type the first name to search for the account details </p>
+<p><input type = "text" ng-model = "test"></p>
+
+<ul>
+	<li ng-repeat="x in names | filter: {'firstName':test}">
+		{{x.firstName}} {{x.lastName}} {{x.phoneNumber}} {{x.address}}
+
+	</li>
+</ul>
+	</div>
+
+		<p>Click the little x to remove an entry from the Address Book.</p>
+		<div ng-repeat="x in names | orderBy:'lastName'">
+		{{x.firstName}} {{x.lastName}} {{x.phoneNumber}} {{x.address}}
+			<span ng-click="removeItem($index)">×</span>
+		</div>
+
+
+<div ng-repeat="x in addressBook">
+	<span ng-blind="x.firstName"></span>
+	 <span ng-blind="x.lastName"></span>
+	<span ng-blind="x.phoneNumber"></span>
+	 <span ng-blind="x.address"></span>
+ </div>
+
+
+	<script>
+	var app = angular.module('myApp', []);
+	app.controller('todoCtrl', function($scope) {
+		$scope.addressBook = [{firstName:'John', lastName:'Snow', phoneNumber:'1234567890', address:'123 Main Street'}];
+		$scope.names = [];
+
+		$scope.change = function() {
+			$scope.names.push({firstName:$scope.newFN, lastName:$scope.newLN, phoneNumber:$scope.newPN, address:$scope.newAD});
+			$scope.addressBook.firstName = $scope.newFN;
+			$scope.addressBook.lastName = $scope.newLN;
+			$scope.addressBook.phoneNumber = $scope.newPN;
+			$scope.addressBook.address = $scope.newAD;
+
+			$scope.newFN = "";
+			$scope.newLN = "";
+			$scope.newPN = "";
+			$scope.newAD = "";
+		};
+
+		$scope.removeItem = function (x) {
+			 $scope.names.splice(x,1); //extra $scope
+
+	 }
+
+	});
+	</script>
+</body>
+</html>
